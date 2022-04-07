@@ -55,50 +55,46 @@ void Led::clear_task_handle()
 
 void Led::on() 
 {
+  // Clear the previous task, if any
   this->clear_task_handle();
+  // Turn on the LED
   gpio_set_level(this->_pin, 1);
 }
 
 void Led::off() 
 {
+  // Clear the previous task, if any
   this->clear_task_handle();
+  // Turn off the LED
   gpio_set_level(this->_pin, 0);
 }
 
 void Led::blink_fast() 
 {
-  if (this->_task_handle == NULL) {
-    ESP_LOGI("TASK", "Task NULL");
-  }
+  // Clear the previous task, if any
   this->clear_task_handle();
+  // Create a task with IDLE_PRIORITY
   xTaskCreate(
-    Led::blink_fast_handler,
-    "LED",
+    Led::blink_fast_handler, // the task function (need to be static)
+    "LED", // the name 
     5000,
-    this,
+    this, // the argument that we are expecting in the task function
     tskIDLE_PRIORITY,
-    &(this->_task_handle)
+    &(this->_task_handle) // the handle to store the task information (WARNING: we nee the reference with the &)
   );
-
-  if (this->_task_handle) {
-    ESP_LOGI("TASK", "Task NOT NULL");
-  }
-  else 
-  {
-    ESP_LOGI("TASK", "Task NULL");
-  }
 }
 
 
 void Led::blink_slow() 
 {
+  // Clear the previous task, if any
   this->clear_task_handle();
   xTaskCreate(
-    Led::blink_slow_handler,
-    "LED",
+    Led::blink_slow_handler, // the task function (need to be static)
+    "LED", // the name 
     5000,
-    this,
+    this, // the argument that we are expecting in the task function
     tskIDLE_PRIORITY,
-    &(this->_task_handle)
+    &(this->_task_handle) // the handle to store the task information (WARNING: we nee the reference with the &)
   );
 }
