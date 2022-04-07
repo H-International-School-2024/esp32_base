@@ -8,11 +8,9 @@ void Led::blink_fast_handler(void* parameter)
 {
   Led* led = (Led*) parameter;
   while (true) {
-    ESP_LOGI("TAG", "blink_fast_handler 1");
-    // gpio_set_level(led->_pin, 1);
+    gpio_set_level(led->_pin, 1);
     vTaskDelay(pdMS_TO_TICKS(100));
-    ESP_LOGI("TAG", "blink_fast_handler 2");
-    // gpio_set_level(led->_pin, 0);
+    gpio_set_level(led->_pin, 0);
     vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
@@ -22,11 +20,9 @@ void Led::blink_slow_handler(void* parameter)
 {
   Led* led = (Led*) parameter;
   while (true) {
-    // gpio_set_level(led->_pin, 1);
-    ESP_LOGI("TAG", "blink_slow_handler 1");
+    gpio_set_level(led->_pin, 1);
     vTaskDelay(pdMS_TO_TICKS(500));
-    // gpio_set_level(led->_pin, 0);
-    ESP_LOGI("TAG", "blink_slow_handler 1");
+    gpio_set_level(led->_pin, 0);
     vTaskDelay(pdMS_TO_TICKS(500));
   }
 }
